@@ -21,9 +21,13 @@ services.AddSwaggerGen();
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 services.AddTransient<ICandidateRepository, CandidateRepository>();
+services.AddTransient<IStatusRepository, StatusRepository>();
+services.AddTransient<IJobRepository, JobRepository>();
 services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 services.AddScoped<ICandidateService, CandidateService>();
+services.AddScoped<IStatusService, StatusService>();
+services.AddScoped<IJobService, JobService>();
 
 var app = builder.Build();
 

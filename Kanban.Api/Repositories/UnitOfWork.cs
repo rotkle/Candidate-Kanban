@@ -8,10 +8,16 @@ namespace Kanban.Api.Repositories
         private readonly DataContext _context;
         public ICandidateRepository Candidates { get; }
 
-        public UnitOfWork(DataContext context, ICandidateRepository Candidates)
+        public IStatusRepository Status { get; }
+
+        public IJobRepository Jobs { get; }
+
+        public UnitOfWork(DataContext context, ICandidateRepository Candidates, IStatusRepository Status, IJobRepository Jobs)
         {
             this._context = context;
             this.Candidates = Candidates;
+            this.Status = Status;
+            this.Jobs = Jobs;
         }
 
         public int Save()
