@@ -1,4 +1,5 @@
 using Kanban.Api.Entities;
+using Kanban.Api.Helpers;
 using Kanban.Api.Models;
 using Kanban.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,21 @@ namespace Kanban.Api.Controllers
         public async Task<CandidateDto> GetCandidate(int id) 
         {
             return await _candidateService.GetById(id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCandidate([FromBody] CandidateRequestDto data)
+        {
+            await _candidateService.Create(data);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateCandidate(int id, [FromBody] CandidateRequestDto data)
+        {
+            await _candidateService.Update(id, data);
+            return Ok();
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Kanban.Api.Services.Interfaces
     {
         Task<IEnumerable<CandidateDto>> GetAll();
         Task<CandidateDto> GetById(int id);
-        //void Create(CreateRequest model);
+        Task Create(CandidateRequestDto data);
+        Task Update(int id, CandidateRequestDto data);
     }
 }

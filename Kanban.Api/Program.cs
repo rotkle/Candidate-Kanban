@@ -1,4 +1,6 @@
 using Kanban.Api.Helpers;
+using Kanban.Api.Repositories;
+using Kanban.Api.Repositories.Interfaces;
 using Kanban.Api.Services;
 using Kanban.Api.Services.Interfaces;
 
@@ -17,6 +19,9 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+services.AddTransient<ICandidateRepository, CandidateRepository>();
+services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 services.AddScoped<ICandidateService, CandidateService>();
 

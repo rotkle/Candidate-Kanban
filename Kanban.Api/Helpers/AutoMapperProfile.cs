@@ -12,6 +12,9 @@ namespace Kanban.Api.Helpers
             CreateMap<Candidate, CandidateDto>()
                 .ForMember(x => x.Jobs, options => options.Ignore());
 
+            //CandidateRequestDto -> Candidate
+            CreateMap<CandidateRequestDto, Candidate>();
+
             //Status -> StatusDto
             CreateMap<Status, StatusDto>();
 
