@@ -1,5 +1,8 @@
 ﻿namespace Kanban.Api.Models
 {
+    /// <summary>
+    /// Candidate dto contain Candidate data which will be return when get Candidate requests is called
+    /// </summary>
     public class CandidateDto
     {
         public int Id { get; set; }

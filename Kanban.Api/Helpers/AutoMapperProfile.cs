@@ -4,6 +4,9 @@ using Kanban.Api.Models;
 
 namespace Kanban.Api.Helpers
 {
+    /// <summary>
+    /// AutoMapper profile configuration. Please define mapping profiles in this file
+    /// </summary>
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()

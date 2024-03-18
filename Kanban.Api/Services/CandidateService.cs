@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kanban.Api.Services
 {
+    /// <summary>
+    /// Implementation of <see cref="ICandidateService"/>
+    /// </summary>
     public class CandidateService : ICandidateService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -19,6 +22,7 @@ namespace Kanban.Api.Services
             _unitOfWork = unitOfWork;
         }
 
+        /// <inheritdoc/>
         public async Task Create(CandidateRequestDto data)
         {
             var candidate = await _unitOfWork.Candidates.Get(x => x.Email == data.Email).FirstOrDefaultAsync();
@@ -34,6 +38,8 @@ namespace Kanban.Api.Services
             }
 
             candidate = _mapper.Map<Candidate>(data);
+
+            // create candidate jobs
             if (data.JobIds != null)
             {
                 candidate.CandidateJobs = data.JobIds.Select(x => new CandidateJob
@@ -46,6 +52,7 @@ namespace Kanban.Api.Services
             _unitOfWork.Save();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<CandidateDto>> GetAll()
         {
             var result = new List<CandidateDto>();
@@ -69,6 +76,7 @@ namespace Kanban.Api.Services
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<CandidateDto> GetById(int id)
         {
             var candidate = await _unitOfWork.Candidates.Get().Include(x => x.Status)
@@ -86,6 +94,7 @@ namespace Kanban.Api.Services
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task Update(int id, CandidateRequestDto data)
         {
             var candidate = await _unitOfWork.Candidates.Get(x => x.Id == id)

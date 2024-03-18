@@ -3,6 +3,9 @@ using System.Text.Json;
 
 namespace Kanban.Api.Helpers
 {
+    /// <summary>
+    /// Custom errors handler middleware for the application. All errors will be handled here
+    /// </summary>
     public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;

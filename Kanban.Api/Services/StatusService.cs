@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kanban.Api.Services
 {
+    /// <summary>
+    /// Implementation of <see cref="IStatusService"/>
+    /// </summary>
     public class StatusService : IStatusService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,6 +20,7 @@ namespace Kanban.Api.Services
             _unitOfWork = unitOfWork;
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<StatusDto>> GetAllStatus()
         {
             var status = await _unitOfWork.Status.Get().ToListAsync();

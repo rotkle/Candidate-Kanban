@@ -3,6 +3,9 @@ using Kanban.Api.Repositories.Interfaces;
 
 namespace Kanban.Api.Repositories
 {
+    /// <summary>
+    /// Implementation of <see cref="IUnitOfWork"/>
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext _context;

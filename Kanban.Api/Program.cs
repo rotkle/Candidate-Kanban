@@ -6,10 +6,10 @@ using Kanban.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var services = builder.Services;
 var env = builder.Environment;
 
+// add db context
 services.AddDbContext<DataContext>();
 services.AddCors();
 
@@ -18,13 +18,16 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
+// register AutoMapper
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// add repositories and unit of work
 services.AddTransient<ICandidateRepository, CandidateRepository>();
 services.AddTransient<IStatusRepository, StatusRepository>();
 services.AddTransient<IJobRepository, JobRepository>();
 services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+// add services
 services.AddScoped<ICandidateService, CandidateService>();
 services.AddScoped<IStatusService, StatusService>();
 services.AddScoped<IJobService, JobService>();

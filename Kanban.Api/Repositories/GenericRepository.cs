@@ -1,8 +1,11 @@
 using Kanban.Api.Helpers;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
 
+/// <summary>
+/// Implementation of <see cref="IGenericRepository{T}"/>
+/// </summary>
+/// <typeparam name="T">Database Entity</typeparam>
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     internal DataContext _context;

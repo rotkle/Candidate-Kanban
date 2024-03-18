@@ -3,9 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kanban.Api.Helpers
 {
+    /// <summary>
+    /// Database context which is used to interact with MySql database by connection string
+    /// </summary>
     public class DataContext : DbContext
     {
         protected readonly IConfiguration Configuration;
+
+        public DataContext()
+        {
+        }
 
         public DataContext(IConfiguration configuration)
         {
@@ -19,9 +26,9 @@ namespace Kanban.Api.Helpers
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
 
-        public DbSet<Candidate> Candidates { get; set; }
-        public DbSet<Status> Status { get; set; }
-        public DbSet<Job> Jobs { get; set; }
-        public DbSet<CandidateJob> CandidateJobs { get; set; }
+        public virtual DbSet<Candidate> Candidates { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<Job> Jobs { get; set; }
+        public virtual DbSet<CandidateJob> CandidateJobs { get; set; }
     }
 }
