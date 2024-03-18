@@ -65,6 +65,41 @@ namespace Kanban.Api.Test.Services
         }
 
         [Fact]
+        public async void CreateCandidate_ShouldReturnError_StatusNotExist()
+        {
+            // Arrange
+            var testCandidateData = new List<Candidate>
+            {
+                new Candidate
+                {
+                    FirstName = "abc",
+                    LastName = "abc",
+                    PhoneNumber = "1234567890",
+                    Email = "abc@abc.com"
+                }
+            }.BuildMock().BuildMockDbSet();
+
+            var testStatusData = new List<Status>
+            {
+                new Status
+                {
+                    Id = 1,
+                    Name = "Applied"
+                }
+            }.BuildMock().BuildMockDbSet();
+
+            var mockUOW = TestUnitOfWorkHelper.CreateMockUOW(testCandidateData, testStatusData, new Mock<DbSet<Job>>());
+            var mockMapper = new Mock<IMapper>();
+
+            // Act
+            var service = new CandidateService(mockMapper.Object, mockUOW);
+            var exception = await Assert.ThrowsAsync<AppException>(() => service.Create(new CandidateRequestDto { StatusId = 0 }));
+
+            // Assert
+            Assert.Equal("Status not exist!", exception.Message);
+        }
+
+        [Fact]
         public async void UpdateCandidate_ShouldReturnError_NotFoundCandidate()
         {
             // Arrange
@@ -167,6 +202,50 @@ namespace Kanban.Api.Test.Services
 
             // Assert
             Assert.Equal("Phone number is already exist! Please choice other phone number", exception.Message);
+        }
+
+        [Fact]
+        public async void UpdateCandidate_ShouldReturnError_StatusExist()
+        {
+            // Arrange
+            var testCandidateData = new List<Candidate>
+            {
+                new Candidate
+                {
+                    Id = 1,
+                    FirstName = "abc",
+                    LastName = "abc",
+                    PhoneNumber = "1234567890",
+                    Email = "abc@abc.com"
+                },
+                new Candidate
+                {
+                    Id = 2,
+                    FirstName = "xyz",
+                    LastName = "xyz",
+                    PhoneNumber = "92189301293",
+                    Email = "xyz@xyz.com"
+                }
+            }.BuildMock().BuildMockDbSet();
+
+            var testStatusData = new List<Status>
+            {
+                new Status
+                {
+                    Id = 1,
+                    Name = "Applied"
+                }
+            }.BuildMock().BuildMockDbSet();
+
+            var mockUOW = TestUnitOfWorkHelper.CreateMockUOW(testCandidateData, testStatusData, new Mock<DbSet<Job>>());
+            var mockMapper = new Mock<IMapper>();
+
+            // Act
+            var service = new CandidateService(mockMapper.Object, mockUOW);
+            var exception = await Assert.ThrowsAsync<AppException>(() => service.Update(1, new CandidateRequestDto { Email = "test@test.com", PhoneNumber = "23189301293", StatusId = 10100 }));
+
+            // Assert
+            Assert.Equal("Status not exist!", exception.Message);
         }
     }
 }

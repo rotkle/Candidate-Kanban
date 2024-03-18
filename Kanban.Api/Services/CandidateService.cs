@@ -37,11 +37,21 @@ namespace Kanban.Api.Services
                 throw new AppException("Phone number is already exist! Please choice other phone number");
             }
 
+            var existStatus = await _unitOfWork.Status.Get(x => x.Id == data.StatusId).FirstOrDefaultAsync();
+            if (existStatus == null)
+            {
+                throw new AppException("Status not exist!");
+            }
+
             candidate = _mapper.Map<Candidate>(data);
 
             // create candidate jobs
             if (data.JobIds != null)
             {
+                // make sure no duplicate and only insert valid jobs
+                var validJobIds = await _unitOfWork.Jobs.Get().Select(x => x.Id).ToListAsync();
+                data.JobIds = data.JobIds.Intersect(validJobIds).ToList();
+
                 candidate.CandidateJobs = data.JobIds.Select(x => new CandidateJob
                 {
                     JobId = x
@@ -116,6 +126,13 @@ namespace Kanban.Api.Services
             {
                 throw new AppException("Phone number is already exist! Please choice other phone number");
             }
+
+            var existStatus = await _unitOfWork.Status.Get(x => x.Id == data.StatusId).FirstOrDefaultAsync();
+            if (existStatus == null)
+            {
+                throw new AppException("Status not exist!");
+            }
+
             // update candidate data
             candidate.Email = data.Email;
             candidate.PhoneNumber = data.PhoneNumber;
@@ -126,6 +143,10 @@ namespace Kanban.Api.Services
             // update jobs
             if (data.JobIds != null)
             {
+                // make sure no duplicate and only insert valid jobs
+                var validJobIds = await _unitOfWork.Jobs.Get().Select(x => x.Id).ToListAsync();
+                data.JobIds = data.JobIds.Intersect(validJobIds).ToList();
+
                 candidate.CandidateJobs = data.JobIds.Select(x => new CandidateJob
                 {
                     CandidateId = id,

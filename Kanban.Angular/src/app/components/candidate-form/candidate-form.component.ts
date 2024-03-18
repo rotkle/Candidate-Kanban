@@ -69,17 +69,28 @@ export class CandidateForm {
 
   initForm() {
     this.candidateForm = new FormGroup({
-      firstName: new FormControl('', Validators.compose([Validators.required])),
-      lastName: new FormControl('', Validators.compose([Validators.required])),
+      firstName: new FormControl(
+        '',
+        Validators.compose([Validators.required, this.utilsServices.maxLengthValidator('First name', 100)])
+      ),
+      lastName: new FormControl(
+        '',
+        Validators.compose([Validators.required, this.utilsServices.maxLengthValidator('Last name', 100)])
+      ),
       email: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.email])
+        Validators.compose([
+          Validators.required,
+          Validators.email,
+          this.utilsServices.maxLengthValidator('Email', 200),
+        ])
       ),
       phoneNumber: new FormControl(
         '',
         Validators.compose([
           Validators.required,
           Validators.pattern(numberPattern),
+          this.utilsServices.maxLengthValidator('Phone number', 30),
         ])
       ),
       status: new FormControl(
