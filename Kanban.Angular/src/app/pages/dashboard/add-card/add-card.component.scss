@@ -1,0 +1,22 @@
+/* Global imports */
+
+@import "./src/assets/styles/imports";
+
+/* Custom styles */
+
+.add-card {
+    // flex: 0 0 15rem;
+    font-size: 1rem;
+    font-weight: 400;
+    background: #ececef;
+    color: #666;
+    padding: 0.5rem 1rem;
+    border-bottom-right-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+    cursor: pointer;
+    transition: all ease 0.1s;
+    &:hover {
+        background: var(--tui-link-hover);
+        color: var(--tui-text-01-night);
+    }
+}

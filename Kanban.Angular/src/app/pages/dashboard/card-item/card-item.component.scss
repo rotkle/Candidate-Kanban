@@ -1,0 +1,21 @@
+.title {
+    a {
+        color: var(--tui-text-01);
+        text-decoration: none;
+    }
+    a {
+        &:hover {
+            color: var(--tui-link);
+        }
+    }
+}
+.icon {
+    .email {
+        width: 18px;
+        height: 18px;
+    }
+    .phone {
+        width: 20px;
+        height: 20px;
+    }
+}

@@ -1,0 +1,21 @@
+<div class="candidate-page">
+    <div class="container">
+        <div class="candidate-wrap">
+            <tui-breadcrumbs class="breadcrumbs">
+                <ng-container *ngFor="let item of items">
+                    <a
+                        *tuiItem
+                        tuiLink
+                        [routerLink]="item.routerLink"
+                        [ngClass]="{'no-link': !item.routerLink}"
+                    >
+                        {{ item.caption }}
+                    </a>
+                </ng-container>
+            </tui-breadcrumbs>
+            <h1 class="page-title fw-bold fs-1 mb-0">Update candidate</h1>
+
+            <candidate-form [canId]="canId"></candidate-form>
+        </div>
+    </div>
+</div>

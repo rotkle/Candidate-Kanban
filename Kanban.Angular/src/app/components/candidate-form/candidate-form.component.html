@@ -1,0 +1,65 @@
+<form class="edit-form mt-5 position-relative" [formGroup]="candidateForm" *ngIf="candidateForm">
+    <div class="row">
+        <div class="col-12 col-lg-6 mb-4">
+            <tui-input formControlName="firstName"
+                [ngClass]="{'tui-autofill _invalid': candidateForm.controls['firstName'].touched && !candidateForm.controls['firstName'].valid }">
+                First Name
+                <input tuiTextfield type="text" />
+            </tui-input>
+            <tui-error formControlName="firstName" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <tui-input formControlName="lastName"
+            [ngClass]="{'tui-autofill _invalid': candidateForm.controls['lastName'].touched && !candidateForm.controls['lastName'].valid }">
+                Last Name
+                <input tuiTextfield type="text" />
+            </tui-input>
+            <tui-error formControlName="lastName" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <tui-input formControlName="email"
+                [ngClass]="{'tui-autofill _invalid': candidateForm.controls['email'].touched && !candidateForm.controls['email'].valid }">
+                Email
+                <input tuiTextfield type="email" />
+            </tui-input>
+            <tui-error formControlName="email" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <tui-input formControlName="phoneNumber"
+            [ngClass]="{'tui-autofill _invalid': candidateForm.controls['phoneNumber'].touched && !candidateForm.controls['phoneNumber'].valid }">
+                Phone Number
+                <input tuiTextfield type="tel" />
+            </tui-input>
+            <tui-error formControlName="phoneNumber" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <div class="col-12 col-lg-6 mb-4" *ngIf="!isAddForm">
+            <tui-select formControlName="status" [stringify]="stringify" [identityMatcher]="identityMatcher"
+                [ngClass]="{'tui-autofill _invalid': candidateForm.controls['status'].touched && !candidateForm.controls['status'].valid }">
+                Status
+                <input placeholder="Choose your status" tuiTextfield />
+                <select tuiSelect [items]="statusList"></select>
+            </tui-select>
+            <tui-error formControlName="status" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <tui-multi-select [editable]="false" formControlName="job" [identityMatcher]="identityMatcher"
+                [stringify]="stringify" [tuiTextfieldCleaner]="true" [tuiTextfieldLabelOutside]="true"
+                [ngClass]="{'tui-autofill _invalid': candidateForm.controls['job'].touched && !candidateForm.controls['job'].valid }">
+                Job
+
+                <select multiple tuiSelect [items]="jobs"></select>
+            </tui-multi-select>
+            <tui-error formControlName="job" [error]="[] | tuiFieldError | async"></tui-error>
+        </div>
+        <div class="col-12 mt-2 d-flex justify-content-center align-items-center">
+            <button appearance="flat" size="l" tuiButton type="button" class="tui-form__button me-3"
+                (click)="resetForm()">
+                Cancel
+            </button>
+            <button tuiButton type="button" [showLoader]="isLoading || isSubmitting"
+                (click)="submitForm(candidateForm.value)">
+                Submit
+            </button>
+        </div>
+    </div>
+</form>

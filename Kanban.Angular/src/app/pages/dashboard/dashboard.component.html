@@ -1,0 +1,32 @@
+<div class="dashboard-page">
+    
+    <div class="container-fluid">
+        <div class="mt-2 mb-3 title d-flex align-items-center">
+            <h1 class="mb-0 fw-bold tui-text_h5">Kanban Board</h1>
+            <app-loading *ngIf="isLoading"></app-loading>
+        </div>
+
+        <section class="columns noselect" dragula="COLUMNS" [(dragulaModel)]="boardList">
+            <div class="column" *ngFor="let column of boardList">
+                <app-edit-column-title [column]="column"></app-edit-column-title>
+
+                <div class="cards-dummy">
+                    <div *ngFor="let d of [1,2,3]"></div>
+                </div>
+
+                <div #cardsCnt class="cards" dragula="CARDS" [(dragulaModel)]="column.candidates" [attr.data-id]="column.id">
+                    <div class="card" *ngFor="let item of column.candidates">
+                        <card-item [item]="item"></card-item>
+                    </div>
+                </div>
+
+                <app-add-card (onAddCandidate)="showModalAddCandidate(column.id)"></app-add-card>
+            </div>
+        </section>
+    </div>
+</div>
+
+<ng-template let-observer [tuiDialogOptions]="{label: 'Create New Candidate', size: 'l', dismissible: false}"
+    [(tuiDialog)]="open">
+    <candidate-form [isAddForm]="true" [statusId]="statusId" (onCloseModal)="closeModalAddCandidate()" (onRefresh)="refresh()"></candidate-form>
+</ng-template>
