@@ -35,7 +35,7 @@ The validations on detail page is the same with Create Candidate form. Users can
 # Setup and Run application
 To build and run the project, firstly pull the source code from github to local, then follow the instructions for each project below.
 ## Kanban.Api
-1. Download [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+1. Download [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) and install
 2. Go to the Kanban.Api folder
 3. Open command line and run `dotnet restore` to restore nugets packages
 4. Run `dotnet build` to build project
@@ -43,7 +43,7 @@ To build and run the project, firstly pull the source code from github to local,
 6. The project is run at `http://localhost:4000`
 
 ## Kanban.Angular
-1. Download [NodeJs v16.10](https://nodejs.org/en/blog/release/v16.10.0) (or higher)
+1. Download [NodeJs v16.10](https://nodejs.org/en/blog/release/v16.10.0) (or higher) and install
 2. Go to the Kanban.Angular folder
 3. Open command line and run `npm install` to install node and angular packages
 4. Run `npm start` to start project
